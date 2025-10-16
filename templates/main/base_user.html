@@ -194,30 +194,15 @@
         </div>
 
         <ul class="list-unstyled">
-            <li class="active">
-                <a href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
-            </li>
-            <li>
-                <a href="#"><i class="bi bi-cart"></i> Órdenes</a>
-            </li>
-            <li>
-                <a href="#"><i class="bi bi-menu-button"></i> Menú</a>
-            </li>
-            <li>
-                <a href="#"><i class="bi bi-people"></i> Clientes</a>
-            </li>
-            <li>
-                <a href="#"><i class="bi bi-bar-chart"></i> Reportes</a>
-            </li>
-            <li>
-                <a href="{% url 'accounts:user_list' %}"><i class="bi bi-people-fill"></i> Usuarios</a>
-            </li>
-            <li>
-                <a href="#"><i class="bi bi-gear"></i> Configuración</a>
-            </li>
-            <li>
-                <a href="#"><i class="bi bi-question-circle"></i> Ayuda</a>
-            </li>
+            <li class="active"><a href="#"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+            <li><a href="{% url 'ordenes:ordenes_list' %}"><i class="bi bi-cart"></i> Órdenes</a></li>
+            <li><a href="{% url 'ordenes:mesas_list' %}"><i class="bi bi-table"></i> Mesas</a></li>
+            <li><a href="{% url 'platillos:platillos_list' %}"><i class="bi bi-menu-button"></i> Menú</a></li>
+            <li><a href="#"><i class="bi bi-people"></i> Clientes</a></li>
+            <li><a href="#"><i class="bi bi-bar-chart"></i> Reportes</a></li>
+            <li><a href="{% url 'accounts:user_list' %}"><i class="bi bi-people-fill"></i> Usuarios</a> </li>
+            <li><a href="{% url 'platillos:categoria_list' %}"><i class="bi bi-gear"></i> Categorias</a></li>
+            <li><a href="#"><i class="bi bi-question-circle"></i> Ayuda</a></li>
         </ul>
 
         <div class="px-3 mt-4">

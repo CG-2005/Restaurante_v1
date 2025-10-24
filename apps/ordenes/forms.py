@@ -1,5 +1,5 @@
 import django.forms as forms
-from .models import Mesa, MesaEstado, Orden
+from .models import Mesa, MesaEstado, Orden, MetodoPago, Pago
 from apps.platillos.models import Platillo
 
 class MesaEstadoForm(forms.ModelForm):
@@ -29,12 +29,21 @@ class OrdenForm(forms.ModelForm):
             'empleado': forms.HiddenInput(attrs={'class': 'form-control'})
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'mesa' in self.fields:
+            self.fields['mesa'].queryset = Mesa.objects.filter(estado__nombre__iexact='Disponible')
+
     def save(self, commit=True):
         orden = super().save(commit=False)
         if commit:
             orden.estatus = 'pendiente'  # Set default status
             orden.empleado = self.initial['empleado']
             orden.save()
+
+            mesa = orden.mesa
+            mesa.estado = MesaEstado.objects.get(nombre='Ocupada')
+            mesa.save()
         return orden
 
 class OrdenDetalleForm(forms.Form):
@@ -42,3 +51,21 @@ class OrdenDetalleForm(forms.Form):
     cantidad = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
     notas = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 3}), required=False)    
     orden_id = forms.IntegerField(widget=forms.HiddenInput())
+
+class MetodoPagoForm(forms.ModelForm):
+    class Meta:
+        model = MetodoPago
+        fields = ['nombre']
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control'})
+        }
+
+class PagoForm(forms.ModelForm):
+    class Meta:
+        model = Pago
+        fields = ['orden', 'metodo_pago', 'cantidad']
+        widgets = {
+            'orden': forms.HiddenInput(),
+            'metodo_pago': forms.Select(attrs={'class': 'form-control'}),
+            'cantidad': forms.NumberInput(attrs={'class': 'form-control'})
+        }

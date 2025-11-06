@@ -189,4 +189,3 @@ class PagoListView(LoginRequiredMixin, ListView):
     model = Pago
     template_name = 'pagos/pagos_list.html'
     context_object_name = 'pagos'
-

@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Editar estado de mesas</h1>
 
-<form action="{% url 'ordenes:mesas_estado_edit' form.instance.pk %}" method="post">
+<form action="{% url 'ordenes:mesas_estado_update' form.instance.pk %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btn btn-primary">Guardar</button>

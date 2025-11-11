@@ -25,5 +25,6 @@ urlpatterns = [
     path('platillos/', include('apps.platillos.urls')),
     path('dashboard/', views.index_user, name='index_user'),
     path('ordenes/', include('apps.ordenes.urls')),
+    
 ]
 

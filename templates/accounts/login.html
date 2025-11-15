@@ -12,7 +12,7 @@
 
 {% block content %}
 <div class="d-flex justify-content-center align-items-center vh-100">
-  <div class="card shadow-lg p-4" style="width: 22rem;">
+  <div class="card shadow-lg p-4" style="width: 25rem;">
     <h3 class="text-center mb-4">Iniciar Sesión</h3>
     <form method="post" action="{% url 'accounts:login' %}">
       {% csrf_token %}
@@ -28,6 +28,15 @@
       <div class="d-grid">
         <button type="submit" class="btn btn-primary">Ingresar</button>
       </div>
+
+      <div class="login-footer">
+            <p class="mb-0">¿No tienes una cuenta? <a href="{% url 'accounts:register' %}" class="link-primary">Regístrate ahora</a></p>
+      </div>
+
+      <div class="text-center mt-4">
+            <p class="text-muted">&copy; 2023 RESTAURANT ZERO. Todos los derechos reservados.</p>
+            <p class="text-muted"><a href="#" class="link-primary">Términos de uso</a> | <a href="#" class="link-primary">Política de privacidad</a></p>
+        </div>
     </form>
   </div>
 </div>

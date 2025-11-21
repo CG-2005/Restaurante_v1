@@ -10,8 +10,13 @@ services:
     name: restaurante_v1_web
     runtime: python
 
-    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --no-input"
-    startCommand: "gunicorn restaurante_v1.wsgi:application"
+    buildCommand: >
+      pip install -r requirements.txt &&
+      python manage.py migrate --no-input &&
+      python manage.py collectstatic --no-input
+
+    startCommand: >
+      gunicorn restaurante_v1.wsgi:application --bind 0.0.0.0:$PORT
 
     envVars:
       - key: DATABASE_URL

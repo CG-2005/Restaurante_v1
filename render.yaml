@@ -9,7 +9,11 @@ services:
     plan: free
     name: restaurante_v1_web
     runtime: python
-    buildCommand: './build.sh'
+    buildCommand: >
+      pip install --upgrade pip &&
+      pip install -r requirements.txt &&
+      python manage.py migrate --no-input &&
+      python manage.py collectstatic --no-input
     startCommand: 'python -m gunicorn restaurante_v1.asgi:application -k uvicorn.workers.UvicornWorker'
     envVars:
       - key: DATABASE_URL

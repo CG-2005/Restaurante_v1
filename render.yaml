@@ -9,14 +9,24 @@ services:
     plan: free
     name: restaurante_v1_web
     runtime: python
-    buildCommand: './build.sh'
-    startCommand: 'python -m gunicorn restaurante.asgi:application -k uvicorn.workers.UvicornWorker'
+
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --no-input"
+    startCommand: "gunicorn restaurante_v1.wsgi:application"
+
     envVars:
       - key: DATABASE_URL
         fromDatabase:
           name: restaurante_v1db
           property: connectionString
+
       - key: SECRET_KEY
         generateValue: true
+
+      - key: DEBUG
+        value: "False"
+
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com"
+
       - key: WEB_CONCURRENCY
-        value: 4
+        value: "4"

@@ -1,21 +1,20 @@
-databases:
-  - name: restaurante_v1db
-    plan: free
-    databaseName: restaurante
-    user: mysite
-
 services:
   - type: web
-    plan: free
     name: restaurante_v1_web
+    plan: free
     runtime: python
 
     buildCommand: >
+      pip install --upgrade pip &&
       pip install -r requirements.txt &&
       python manage.py migrate --no-input &&
       python manage.py collectstatic --no-input
 
-    startCommand: 'python -m gunicorn restaurante.asgi:application -k uvicorn.workers.UvicornWorker'
+    startCommand: >
+      gunicorn restaurante_v1.wsgi:application
+      --bind 0.0.0.0:$PORT
+      --workers ${WEB_CONCURRENCY:-4}
+      --log-level info
 
     envVars:
       - key: DATABASE_URL

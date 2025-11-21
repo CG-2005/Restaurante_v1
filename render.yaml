@@ -1,5 +1,4 @@
 databases:
- databases:
   - name: restaurante_v1db
     plan: free
     databaseName: restaurante
@@ -36,4 +35,3 @@ services:
 
       - key: WEB_CONCURRENCY
         value: "4"
-

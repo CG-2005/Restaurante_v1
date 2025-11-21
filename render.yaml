@@ -1,7 +1,7 @@
 databases:
   - name: restaurante_v1db
     plan: free
-    databaseName: restaurante_v1
+    databaseName: restaurante
     user: mysite
 
 services:
